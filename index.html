@@ -1,0 +1,186 @@
+<html>
+	<head>
+		<!-- CSS & jQuery for Bootstrap and jQuery    -->
+		<link href="css/bootstrap.css" rel="stylesheet">
+
+		<style>
+			body {
+				background: url('img/img-2.jpg') no-repeat center center fixed;
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+			}
+
+			body div:first-child {
+				top: 0 !important;
+			}
+
+			.fittext {
+				height: 70vh;
+			}
+			.fittext h1 {
+				position: relative;
+				top: 20%;
+			}
+			.knobs {
+				text-align: center;
+				height: 80vh;
+			}
+
+			.knobs h2 {
+				margin-bottom: 30px;
+			}
+
+			.wookmark h2, .wookmark p {
+				text-align: center;
+			}
+
+			.wookmark li {
+				padding: 10px 10px 20px 10px;
+				background-color: #ddd;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				list-style: none;
+			}
+
+			.wookmark ul {
+				position: relative;
+			}
+
+			.wookmark img {
+				width: 160px;
+			}
+
+			.container {
+				margin-top: 40px;
+				background-color: rgba(255,255,255, .92);
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="fittext">
+				<h1>This is Fit Text</h1>
+			</div>
+			<div class="knobs">
+				<h2>These are examples of the Knob Plugin, <br />
+				    And we will see their values change upon scrolling down.</h2>
+				<div class="col-xs-6">
+					<input id="left-knob" class="dial" value="-30" data-min="-50" data-max="50" type="text">
+				</div>
+				<div class="col-xs-6">
+					<input id="right-knob" class="dial" value="-20" data-min="-50" data-max="50" type="text">
+				</div>
+			</div>
+			<div class="wookmark">
+				<h2>This is an example of the Wookmark plugin.</h2>
+				<p>It shoves images beneath other images in ways that a few lines of CSS can not.</p>
+				<ul>
+					<li><img class="img-responsive" src="img/pup4.jpg"></li>
+					<li><img class="img-responsive" src="img/pup2.jpg"></li>
+					<li><img class="img-responsive" src="img/pup3.jpg"></li>
+					<li><img class="img-responsive" src="img/pup1.jpg"></li>
+					<li><img class="img-responsive" src="img/pup4.jpg"></li>
+					<li><img class="img-responsive" src="img/pup2.jpg"></li>
+					<li><img class="img-responsive" src="img/pup3.jpg"></li>
+					<li><img class="img-responsive" src="img/pup1.jpg"></li>
+					<li><img class="img-responsive" src="img/pup4.jpg"></li>
+					<li><img class="img-responsive" src="img/pup2.jpg"></li>
+					<li><img class="img-responsive" src="img/pup3.jpg"></li>
+					<li><img class="img-responsive" src="img/pup1.jpg"></li>
+					<li><img class="img-responsive" src="img/pup4.jpg"></li>
+					<li><img class="img-responsive" src="img/pup2.jpg"></li>
+					<li><img class="img-responsive" src="img/pup3.jpg"></li>
+					<li><img class="img-responsive" src="img/pup1.jpg"></li>
+				</ul>
+			</div>
+		</div>
+
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/bgswitcher.js"></script>
+		<script src="js/fittext.js"></script>
+		<script src="js/knob.min.js"></script>
+		<script src="js/waypoint.js"></script>
+		<script src="js/woomark.js"></script>
+		<script>
+			$(document).ready(function() {
+				// FitText plugin
+				$('.fittext h1').fitText();
+
+				// Knob plugin
+				$('#left-knob, #right-knob').knob();
+
+				// Waypoints plugin
+				$('.knobs').waypoint(function() {
+					$({value:-30}).animate(
+						{value: 40},
+						{duration: 1000,
+						 easing: 'swing',
+						 step: function(){
+						 	$('#left-knob').val(Math.ceil(this.value)).trigger('change');
+						 }})
+					$({value:-20}).animate(
+						{value: 50},
+						{duration: 1000,
+						 easing: 'swing',
+						 step: function(){
+						 	$('#right-knob').val(Math.ceil(this.value)).trigger('change');
+						 }})
+				},'50%');
+
+				// Wookmark Plugin
+				$('.wookmark li').wookmark({
+					autoResize: true,
+					container: $('.wookmark ul'),
+					offset: 5,
+					outerOffset: 10,
+					itemWidth: 200
+				});
+
+				// BgSwitcher plugin
+				$('body').bgswitcher({
+					images: ['img/img-2.jpg', 'img/img-3.jpg', 'img/img-4.jpg'],
+					loop: true
+				});
+
+				// Make the <h2> in the <div class="knob"></div> also be a FitText element.
+				// This utilizes the FitText plugin.
+
+
+				// Make a third Knob object in the <div class="knob"></div>. It doesn't need
+				// to change values.
+				// This will utilize the Knob plugin.
+
+				// Append and fade in "<h2>Waypoint was used to fade in this image!</h2>" above the
+				// puppy photos in the <div class="wookmark"></div> upon scrolling down to
+				// that div.
+				// This will utilize the Waypoint plugin and also raw javascript/jQuery.
+
+				// Make a for-loop that appends 20 of the <li>s which utilize the wookmark plugin.
+				// This task utilizes NO further configuration of plugins.
+				// It only requires standard javascript and jQuery.
+
+				// Make the Knob elements only trigger once.
+				// Notice if you keep scrolling up and down, the knob elements keep triggering.
+				// This will require:
+				// 	putting the Knob Jvascript code inside of an if() statement.
+				// 	creating a separate var to keep track of if it has already been triggered.
+				// 		for example: var i can initially equal 0, but upon triggering the Knob
+				// 		plugin, then add +1 to i. Then, in the if condition, check to see if i
+				// 		is 0. If i is greater than 0, that means that the Knob function has
+				// 		already been triggered!
+
+				// Make the background image stop automatically looping and make the image
+				// change upon scrolling to a new <div>.
+				// This will utilize a combination of the waypoint and bgswitcher plugin.
+
+
+
+			});
+		</script>
+	</body>
+</html>
